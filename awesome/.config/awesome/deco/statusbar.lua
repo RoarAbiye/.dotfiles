@@ -228,7 +228,7 @@ awful.screen.connect_for_each_screen(function(s)
 		ontop = true,
 		visible = false,
 		shape = gears.shape.rounded_rect,
-		maximum_width = 200,
+		maximum_width = 300,
 	})
 
 	-- Function to update the popup with minimized tasks
@@ -249,20 +249,43 @@ awful.screen.connect_for_each_screen(function(s)
 		}
 
 		for _, c in ipairs(minimized_clients) do
-			table.insert(
-				task_widgets,
-				wibox.widget({
-					text = c.name,
-					widget = wibox.widget.textbox,
-					buttons = awful.button({}, 1, function()
-						c.minimized = false
-						c:raise()
-						task_popup.visible = false
-					end),
-				})
-			)
-		end
+			local task_item = wibox.widget({
+				{
+					{
+						image = c.icon,
+						resize = true,
+						widget = wibox.widget.imagebox,
+						maximum_width = 20,
+					},
+					{
+						text = c.name,
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.align.horizontal,
+				},
+				widget = wibox.container.background,
+				bg = beautiful.bg_normal,
+				shape = gears.shape.rounded_rect,
+				forced_height = 20, -- Set the height of the list item
+				-- forced_width = 180, -- Set the width of the list item
+			})
 
+			task_item:connect_signal("mouse::enter", function()
+				task_item.bg = "#5E81AC"
+			end)
+
+			task_item:connect_signal("mouse::leave", function()
+				task_item.bg = beautiful.bg_normal
+			end)
+
+			task_item:buttons(awful.button({}, 1, function()
+				c.minimized = false
+				c:raise()
+				task_popup.visible = false
+			end))
+
+			table.insert(task_widgets, task_item)
+		end
 		task_popup:setup(task_widgets)
 	end
 
@@ -272,8 +295,8 @@ awful.screen.connect_for_each_screen(function(s)
 		if task_popup.visible then
 			task_popup.visible = not task_popup.visible
 		else
-			task_popup:move_next_to(mouse.current_widget_geometry)
 			task_popup.visible = not task_popup.visible
+			task_popup:move_next_to(mouse.current_widget_geometry)
 		end
 	end))
 	-- Create the wibox
