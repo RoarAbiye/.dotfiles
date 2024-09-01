@@ -3,8 +3,8 @@ audio_device_state:1:My HTTP Stream
 audio_device_state:1:PipeWire Sound Server
 audio_device_state:1:Visualizer feed
 state: play
-current: 82
-time: 120.149000
+current: 32
+time: 125.088000
 random: 1
 repeat: 0
 single: 0
