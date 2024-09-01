@@ -175,8 +175,9 @@ awful.screen.connect_for_each_screen(function(s)
 	-- minimized widget
 	local task_button = wibox.widget({
 		{
-			text = " Minimized",
+			text = " 󰖲 ",
 			widget = wibox.widget.textbox,
+			font = "FiraCode Nerdfont 18",
 		},
 		widget = wibox.container.background,
 	})
@@ -204,7 +205,10 @@ awful.screen.connect_for_each_screen(function(s)
 		local task_widgets = {
 			layout = wibox.layout.fixed.vertical,
 			{
-				-- text = " Minimized Tasks",
+				-- markup = "<span foreground='#5E81AC'>   Minimized Tasks </span>",
+				markup = "  <b>Minimized Tasks </b>",
+				opacity = 0.4,
+				font = "FiraCode Nerdfont 12",
 				widget = wibox.widget.textbox,
 			},
 		}
