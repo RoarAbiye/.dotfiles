@@ -1,4 +1,4 @@
-# My Dotfiles
+# Personal ⚫dotfiles
 Welcome to my dotfiles repository! This repository contains my personal configuration files for various tools and applications. Feel free to explore, fork, and use them as you like.
 
 ## Installation
