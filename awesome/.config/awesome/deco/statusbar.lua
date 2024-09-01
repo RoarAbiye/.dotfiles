@@ -172,46 +172,7 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	})
 
-	-- s.tasklist_minimized = awful.widget.tasklist({
-	-- 	screen = s,
-	-- 	filter = awful.widget.tasklist.filter.minimizedcurrenttags,
-	-- 	buttons = tasklist_buttons,
-	-- 	layout = {
-	-- 		spacing = 2,
-	-- 		spacing_widget = {
-	-- 			{
-	-- 				forced_width = 2,
-	-- 				shape = gears.shape.rectangle,
-	-- 				widget = wibox.widget.separator,
-	-- 			},
-	-- 			valign = "center",
-	-- 			halign = "center",
-	-- 			widget = wibox.container.place,
-	-- 		},
-	-- 		layout = wibox.layout.flex.horizontal,
-	-- 	},
-	-- 	widget_template = {
-	-- 		{
-	-- 			{
-	-- 				{
-	-- 					{
-	-- 						id = "icon_role",
-	-- 						widget = wibox.widget.imagebox,
-	-- 					},
-	-- 					margins = 1,
-	-- 					widget = wibox.container.margin,
-	-- 				},
-	-- 				layout = wibox.layout.fixed.horizontal,
-	-- 			},
-	-- 			widget = wibox.container.margin,
-	-- 		},
-	-- 		id = "background_role",
-	-- 		widget = wibox.container.background,
-	-- 	},
-	-- })
-
-	-- text = " Minimized Tasks",
-	-- Create a button widget
+	-- minimized widget
 	local task_button = wibox.widget({
 		{
 			text = " Minimized",
@@ -227,7 +188,7 @@ awful.screen.connect_for_each_screen(function(s)
 		border_width = beautiful.border_width,
 		ontop = true,
 		visible = false,
-		shape = gears.shape.rounded_rect,
+		shape = gears.shape.rectangle,
 		maximum_width = 300,
 	})
 
@@ -243,7 +204,7 @@ awful.screen.connect_for_each_screen(function(s)
 		local task_widgets = {
 			layout = wibox.layout.fixed.vertical,
 			{
-				text = " Minimized Tasks",
+				-- text = " Minimized Tasks",
 				widget = wibox.widget.textbox,
 			},
 		}
@@ -265,7 +226,7 @@ awful.screen.connect_for_each_screen(function(s)
 				},
 				widget = wibox.container.background,
 				bg = beautiful.bg_normal,
-				shape = gears.shape.rounded_rect,
+				shape = gears.shape.rectangle,
 				forced_height = 20, -- Set the height of the list item
 				-- forced_width = 180, -- Set the width of the list item
 			})

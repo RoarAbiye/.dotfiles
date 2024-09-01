@@ -67,7 +67,7 @@ local autorunApps = {
 	"feh --bg-fill ./Pictures/wallpaper/* -z",
 	"ibus-daemon -drxR",
 	"udiskie",
-	"pgrep -x sxhkd > /dev/null || sxhkd -c $HOME/.config/sxhkd/sxhkdrc.awesome",
+	"pgrep -x sxhkd > /dev/null || sxhkd -c $HOME/.config/sxhkd/sxhkdrc.awesoem",
 	"pgrep -x kmix > /dev/null || kmix",
 	"pgrep -x picom > /dev/null || picom",
 	"pgrep -x emacs > /dev/null || emacs --daemon",
