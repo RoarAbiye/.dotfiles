@@ -2,9 +2,8 @@ sw_volume: 51
 audio_device_state:1:My HTTP Stream
 audio_device_state:1:PipeWire Sound Server
 audio_device_state:1:Visualizer feed
-state: play
-current: 6
-time: 125.088000
+state: stop
+current: 43
 random: 1
 repeat: 0
 single: 0
