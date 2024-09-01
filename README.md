@@ -33,4 +33,4 @@ stow .
 If you have any suggestions or improvements, feel free to open an issue or submit a pull request.
 
 ## License
-This repository is licensed under the WTFPL. See the LICENSE file for more details.
+This repository is licensed under the BEERWARE. See the LICENSE file for more details.
