@@ -1,0 +1,3 @@
+return {
+  'tckmn/hotdog.vim',
+}

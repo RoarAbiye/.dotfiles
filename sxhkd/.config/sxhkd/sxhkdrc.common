@@ -1,0 +1,114 @@
+# make sxhkd reload its configuration files:
+super + alt + Escape
+	pkill -USR1 -x sxhkd
+#
+# wm independent hotkeys
+#
+
+super + Up
+  pulsemixer --change-volume +5
+
+super + Down
+  pulsemixer --change-volume -5
+
+super + Insert
+  pulsemixer --toggle-mute
+
+super + Next
+  mpc next
+
+super + Prior
+  mpc prev
+
+super + Home
+  mpc toggle
+
+super + End
+  mpc stop
+
+super + alt + f
+    feh --randomize --bg-fill $HOME/nord-backgrounds/*
+    /home/robel/nord-backgrounds/avogadr.io/1920x1080/
+
+super + alt + a
+    feh --randomize --bg-max /home/robel/anmie_tp/*
+
+super + period
+  rofimoji
+
+alt + F4
+   rofi -show power-menu -modi power-menu:~/.local/bin/rofi-power-menu
+
+# program launcher
+XF86Mail
+    thunderbird
+
+super + g
+  rofi -show window
+
+#super + d 
+	#dmenu_run
+super + d
+    rofi -show drun
+
+super + shift d
+    rofi -show run
+
+super + z
+    brave
+
+super + p
+    kitty --class=music -e ncmpcpp
+
+super + F12
+  kitty -e tmux new
+
+super + a
+    kitty  -e lfrun
+    
+
+XF86Calculator
+    qalculate-gtk
+
+super + t
+    XDG_CURRENT_DESKTOP=gnome telegram-desktop
+
+Print
+    sleep 0.2; \
+    scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'
+
+super + v
+    kitty -e nvim
+
+super + ctrl + o
+    dm-tool lock
+
+XF86AudioRaiseVolume
+  pulsemixer --change-volume +5
+
+XF86AudioLowerVolume
+  pulsemixer --change-volume -5
+
+XF86AudioMute
+  pulsemixer --toggle-mute
+
+XF86AudioPlay
+    mpc toggle
+
+XF86AudioPause
+    mpc toggle
+
+XF86AudioNext
+    mpc next
+
+XF86AudioPrev
+    mpc prev
+
+XF86AudioStop
+    mpc stop
+
+XF86Favorites
+    nemo
+
+XF86Search
+    fsearch
