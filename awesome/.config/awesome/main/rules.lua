@@ -34,6 +34,7 @@ function _M.get(clientkeys, clientbuttons)
 				},
 				class = {
 					"Arandr",
+					"Free Download Manager",
 					"Blueman-manager",
 					"Gpick",
 					"Kruler",
@@ -49,13 +50,13 @@ function _M.get(clientkeys, clientbuttons)
 				-- Note that the name property shown in xprop might be set slightly after creation of the client
 				-- and the name shown there might not match defined rules here.
 				name = {
-					"Event Tester",  -- xev.
+					"Event Tester", -- xev.
 					"Picture in picture", -- Brave Browser
 				},
 				role = {
 					"AlarmWindow", -- Thunderbird's calendar.
 					"ConfigManager", -- Thunderbird's about:config.
-					"pop-up",   -- e.g. Google Chrome's (detached) Developer Tools.
+					"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
 				},
 			},
 
@@ -139,7 +140,7 @@ function _M.get(clientkeys, clientbuttons)
 		},
 		{
 			rule_any = {
-				class = { "VirtualBox", "Virt-manager" }
+				class = { "VirtualBox", "Virt-manager" },
 			},
 			properties = {
 				screen = 1,

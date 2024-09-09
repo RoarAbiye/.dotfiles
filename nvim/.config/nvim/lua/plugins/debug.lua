@@ -1,3 +1,7 @@
+local js_based_languages = {
+	"javascript",
+}
+
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
@@ -5,20 +9,66 @@ return {
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
 		-- debugers
-		"leoluz/nvim-dap-go",
+
+		-- Install the vscode-js-debug adapter
+		{
+			"microsoft/vscode-js-debug",
+			-- After install, build it and rename the dist directory to out
+			build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
+			version = "1.*",
+		},
+		{
+			"mxsdev/nvim-dap-vscode-js",
+			config = function()
+				---@diagnostic disable-next-line: missing-fields
+				require("dap-vscode-js").setup({
+					-- Path of node executable. Defaults to $NODE_PATH, and then "node"
+					-- node_path = "node",
+
+					-- Path to vscode-js-debug installation.
+					debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
+
+					-- Command to use to launch the debug server. Takes precedence over "node_path" and "debugger_path"
+					-- debugger_cmd = { "js-debug-adapter" },
+
+					-- which adapters to register in nvim-dap
+					adapters = {
+						"chrome",
+						"pwa-node",
+						"pwa-chrome",
+						"pwa-msedge",
+						"pwa-extensionHost",
+						"node-terminal",
+					},
+
+					-- Path for file logging
+					-- log_file_path = "(stdpath cache)/dap_vscode_js.log",
+
+					-- Logging level for output to file. Set to false to disable logging.
+					-- log_file_level = false,
+
+					-- Logging level for output to console. Set to false to disable console output.
+					-- log_console_level = vim.log.levels.ERROR,
+				})
+			end,
+		},
+		-- {
+		-- 	"Joakker/lua-json5",
+		-- 	build = "./install.sh",
+		-- },
 	},
+
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
 
-		require("mason-nvim-dap").setup({
-			automatic_setup = true,
-
-			handlers = {},
-			ensure_installed = {
-				-- 'delve',
-			},
-		})
+		-- require("mason-nvim-dap").setup({
+		-- 	automatic_setup = true,
+		-- 	handlers = {},
+		-- 	ensure_installed = {
+		-- 		-- 'delve',
+		-- 	},
+		-- })
 
 		-- Basic debugging keymaps, feel free to change to your liking!
 		vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
@@ -54,24 +104,58 @@ return {
 		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
-		require("dap").adapters["pwa-node"] = {
-			type = "server",
-			host = "localhost",
-			port = "${port}",
-			executable = {
-				command = "node",
-				-- 💀 Make sure to update this path to point to your installation
-				args = { "~/.config/nvim/dapfiles/js-debug/src/dapDebugServer.js", "${port}" },
-			},
-		}
-		require("dap").configurations.javascript = {
-			{
-				type = "pwa-node",
-				request = "launch",
-				name = "Launch file",
-				program = "${file}",
-				cwd = "${workspaceFolder}",
-			},
-		}
+		for _, language in ipairs(js_based_languages) do
+			dap.configurations[language] = {
+				-- Debug single nodejs files
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+				},
+				-- Debug nodejs processes (make sure to add --inspect when you run the process)
+				{
+					type = "pwa-node",
+					request = "attach",
+					name = "Attach",
+					processId = require("dap.utils").pick_process,
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+				},
+				-- Debug web applications (client side)
+				{
+					type = "pwa-chrome",
+					request = "launch",
+					name = "Launch & Debug Chrome",
+					url = function()
+						local co = coroutine.running()
+						return coroutine.create(function()
+							vim.ui.input({
+								prompt = "Enter URL: ",
+								default = "http://localhost:3000",
+							}, function(url)
+								if url == nil or url == "" then
+									return
+								else
+									coroutine.resume(co, url)
+								end
+							end)
+						end)
+					end,
+					webRoot = vim.fn.getcwd(),
+					protocol = "inspector",
+					sourceMaps = true,
+					userDataDir = false,
+				},
+				-- Divider for the launch.json derived configs
+				{
+					name = "----- ↓ launch.json configs ↓ -----",
+					type = "",
+					request = "launch",
+				},
+			}
+		end
 	end,
 }

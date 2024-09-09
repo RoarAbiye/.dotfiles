@@ -11,7 +11,7 @@ local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 -- /home/robel/.config/awesome/awesome-wm-widgets/spotify-widget/spotify.lua
 -- /home/robel/.config/awesome/awesome-wm-widgets/spotify-shell/
 local fs_widget = require("awesome-wm-widgets.fs-widget.fs-widget")
-local mpdarc_widget = require("awesome-wm-widgets.mpdarc-widget.mpdarc")
+local mpd_widget = require("awesome-wm-widgets.mpdarc-widget.mpdarc")
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 -- local net_widget         = require("awesome-wm-widgets.net-speed-widget.net-speed")
 local logout_popup = require("awesome-wm-widgets.logout-popup-widget.logout-popup")
@@ -290,19 +290,19 @@ awful.screen.connect_for_each_screen(function(s)
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			-- myBar,
+			mpd_widget,
 			task_button,
 			s.tasklist_minimized,
-			mpdarc_widget,
-			spotify_widget({
-				font = "sans 9",
-				play_icon = "/usr/share/icons/Papirus-Light/24x24/categories/spotify.svg",
-				pause_icon = "/usr/share/icons/Papirus-Dark/24x24/panel/spotify-indicator.svg",
-			}),
+			-- spotify_widget({
+			-- 	font = "sans 9",
+			-- 	play_icon = "/usr/share/icons/Papirus-Light/24x24/categories/spotify.svg",
+			-- 	pause_icon = "/usr/share/icons/Papirus-Dark/24x24/panel/spotify-indicator.svg",
+			-- }),
 			-- cpu_widget(),
-			volume_widget({ widget_type = "icon_and_text" }),
+			-- volume_widget({ widget_type = "icon_and_text" }),
 			-- volume_widget{widget_type = 'horizontal_bar'},
 			-- fs_widget({mounts = {'/', '/home/robel'}}),
-			fs_widget(),
+			-- fs_widget(),
 			-- mykeyboardlayout,
 			wibox.widget.systray(),
 			-- net_widget(),
