@@ -22,6 +22,9 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 
+local battery = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local brightness = require("awesome-wm-widgets.brightness-widget.brightness")
+
 -- Custom Local Library: Common Functional Decoration
 local deco = {
 	taglist = require("deco.taglist"),
@@ -292,20 +295,22 @@ awful.screen.connect_for_each_screen(function(s)
 			-- myBar,
 			task_button,
 			s.tasklist_minimized,
-			mpdarc_widget,
-			spotify_widget({
-				font = "sans 9",
-				play_icon = "/usr/share/icons/Papirus-Light/24x24/categories/spotify.svg",
-				pause_icon = "/usr/share/icons/Papirus-Dark/24x24/panel/spotify-indicator.svg",
-			}),
+			-- mpdarc_widget,
+			-- spotify_widget({
+			-- 	font = "sans 9",
+			-- 	play_icon = "/usr/share/icons/Papirus-Light/24x24/categories/spotify.svg",
+			-- 	pause_icon = "/usr/share/icons/Papirus-Dark/24x24/panel/spotify-indicator.svg",
+			-- }),
 			-- cpu_widget(),
-			volume_widget({ widget_type = "icon_and_text" }),
+			-- volume_widget({ widget_type = "icon_and_text" }),
 			-- volume_widget{widget_type = 'horizontal_bar'},
 			-- fs_widget({mounts = {'/', '/home/robel'}}),
-			fs_widget(),
+			-- fs_widget(),
 			-- mykeyboardlayout,
 			wibox.widget.systray(),
 			-- net_widget(),
+			brightness(),
+			battery(),
 			mytextclock,
 			s.mylayoutbox,
 			-- logout_menu_widget(),
